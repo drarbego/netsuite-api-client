@@ -41,8 +41,11 @@ class NetSuiteClient:
 
         return response.json()
 
-    def retrieve_order(self, order_id):
-        response = self._get(self._scripts["orders"], params={ "order_id": order_id })
+    def retrieve_orders(self, page_size, page_number):
+        response = self._get(
+            self._scripts["orders"],
+            params={ "page_size": page_size, "page_number": page_number },
+        )
 
         self._handle_errors(response)
 

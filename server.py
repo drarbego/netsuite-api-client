@@ -13,7 +13,12 @@ netsuite_client = NetSuiteClient(
 
 class OrdersResource(object):
     def on_get(self, req, resp):
-        print("request headers ", req.headers)
+        page_size = req.params.get("page_size", 10)
+        page_number = req.params.get("page_number", 0)
+
+        json_response = netsuite_client.retrieve_orders(page_size, page_number)
+        resp.body = json.dumps(json_response)
+        print("json response ", json_response)
 
     def on_post(self, req, resp):
         body = json.load(req.bounded_stream)
